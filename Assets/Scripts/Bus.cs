@@ -26,7 +26,7 @@ public class Bus : MonoBehaviour
     [SerializeField] private float currentNitro = 0f;
     [SerializeField] private float maxNitro = 100f;
     [SerializeField] private float nitroDepletionRate = 25f;
-    [SerializeField] Rigidbody rb;
+    public Rigidbody rb;
     Transform busModel;
     // Start is called before the first frame update
     void Awake()
@@ -91,9 +91,14 @@ public class Bus : MonoBehaviour
         // Nitro Boost
         if (inNitro)
             rb.AddForce(transform.forward * 500f, ForceMode.Acceleration);
+        else if (inDrift)
+            rb.AddForce(transform.forward * currentSpeed * 0.9f, ForceMode.Acceleration);
         else
             rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+        if (currentSpeed >= 0)
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+        else
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y - currentRotate, 0), Time.deltaTime * 5f);
     }
     void OnEnable()
     {
