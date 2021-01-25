@@ -1,2 +1,2 @@
 # Taipei-Bus-Race
- An attempt at creating a minimum complete product using Unity
+A bus-themed racing game that focuses on large scale content implemented with a quick and dirty way.
