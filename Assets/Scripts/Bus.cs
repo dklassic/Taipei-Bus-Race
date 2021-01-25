@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BusSimpleController : MonoBehaviour
+public class Bus : MonoBehaviour
 {
+    public static Bus Instance = null;
     private PlayerControl controls;
     [Header("Control Raw Input")]
     [SerializeField] private float steer = 0f;
@@ -12,7 +13,7 @@ public class BusSimpleController : MonoBehaviour
     [SerializeField] private float brake = 0f;
     [SerializeField] private float drift = 0f;
     [Header("Physical Property")]
-    [SerializeField] private float acceleration = 100f;
+    [SerializeField] private float acceleration = 300f;
     [SerializeField] private float steerSpeed = 10f;
     [SerializeField] private float extraSteerModifier = 2f;
     [SerializeField] private float gravity = 100f;
@@ -20,11 +21,21 @@ public class BusSimpleController : MonoBehaviour
     float rotate, currentRotate;
     float speed, currentSpeed;
     bool inDrift = false;
+    float nitro = 0f;
+    bool inNitro = false;
+    [SerializeField] private float currentNitro = 0f;
+    [SerializeField] private float maxNitro = 100f;
+    [SerializeField] private float nitroDepletionRate = 25f;
     [SerializeField] Rigidbody rb;
     Transform busModel;
     // Start is called before the first frame update
     void Awake()
     {
+        // create the only instance
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
         InitialInputControl();
     }
     void Start()
@@ -58,6 +69,15 @@ public class BusSimpleController : MonoBehaviour
         {
             inDrift = false;
         }
+        if (nitro == 1f && currentNitro > 0)
+        {
+            inNitro = true;
+            currentNitro = Mathf.Max(currentNitro - nitroDepletionRate * Time.deltaTime, 0f);
+        }
+        else
+        {
+            inNitro = false;
+        }
 
     }
     void FixedUpdate()
@@ -65,10 +85,14 @@ public class BusSimpleController : MonoBehaviour
         if (rb == null)
             return;
 
-        //Gravity
+        // Gravity
         rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
-
-        rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
+        // Normal Acceleration
+        // Nitro Boost
+        if (inNitro)
+            rb.AddForce(transform.forward * 500f, ForceMode.Acceleration);
+        else
+            rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
     }
     void OnEnable()
@@ -94,9 +118,16 @@ public class BusSimpleController : MonoBehaviour
         controls.Gameplay.Drift.canceled += _ => drift = 0f;
         controls.Gameplay.Brake.performed += ctx => brake = ctx.ReadValue<float>();
         controls.Gameplay.Brake.canceled += _ => brake = 0f;
+        controls.Gameplay.Nitro.performed += _ => nitro = 1f;
+        controls.Gameplay.Nitro.canceled += _ => nitro = 0f;
     }
 
-    public void Steer(float amount)
+    public void AddNitro(float value)
+    {
+        currentNitro = Mathf.Min(currentNitro + value, maxNitro);
+    }
+
+    private void Steer(float amount)
     {
         rotate = steerSpeed * amount;
     }

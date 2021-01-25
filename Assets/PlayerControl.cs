@@ -76,6 +76,14 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Nitro"",
+                    ""type"": ""Button"",
+                    ""id"": ""677ef3d4-5b13-4374-a3fa-b91c9d0a363c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -85,7 +93,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Gas"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -118,7 +126,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Drift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -151,7 +159,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Steer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -162,7 +170,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Steer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -184,8 +192,30 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ae09500-af24-4a32-9762-3218d4294054"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Nitro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27f81904-2841-404b-98aa-40a1bba1c8a6"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Nitro"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -203,6 +233,17 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -215,6 +256,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
         m_Gameplay_Drift = m_Gameplay.FindAction("Drift", throwIfNotFound: true);
         m_Gameplay_Brake = m_Gameplay.FindAction("Brake", throwIfNotFound: true);
         m_Gameplay_Steer = m_Gameplay.FindAction("Steer", throwIfNotFound: true);
+        m_Gameplay_Nitro = m_Gameplay.FindAction("Nitro", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +343,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Drift;
     private readonly InputAction m_Gameplay_Brake;
     private readonly InputAction m_Gameplay_Steer;
+    private readonly InputAction m_Gameplay_Nitro;
     public struct GameplayActions
     {
         private @PlayerControl m_Wrapper;
@@ -309,6 +352,7 @@ public class @PlayerControl : IInputActionCollection, IDisposable
         public InputAction @Drift => m_Wrapper.m_Gameplay_Drift;
         public InputAction @Brake => m_Wrapper.m_Gameplay_Brake;
         public InputAction @Steer => m_Wrapper.m_Gameplay_Steer;
+        public InputAction @Nitro => m_Wrapper.m_Gameplay_Nitro;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,6 +374,9 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                 @Steer.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSteer;
                 @Steer.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSteer;
                 @Steer.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSteer;
+                @Nitro.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNitro;
+                @Nitro.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNitro;
+                @Nitro.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnNitro;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -346,6 +393,9 @@ public class @PlayerControl : IInputActionCollection, IDisposable
                 @Steer.started += instance.OnSteer;
                 @Steer.performed += instance.OnSteer;
                 @Steer.canceled += instance.OnSteer;
+                @Nitro.started += instance.OnNitro;
+                @Nitro.performed += instance.OnNitro;
+                @Nitro.canceled += instance.OnNitro;
             }
         }
     }
@@ -359,6 +409,15 @@ public class @PlayerControl : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
     public interface IMenuActions
     {
         void OnNewaction(InputAction.CallbackContext context);
@@ -369,5 +428,6 @@ public class @PlayerControl : IInputActionCollection, IDisposable
         void OnDrift(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
         void OnSteer(InputAction.CallbackContext context);
+        void OnNitro(InputAction.CallbackContext context);
     }
 }
