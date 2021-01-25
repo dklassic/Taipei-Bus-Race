@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 131.18076, g: 162.51416, b: 215.03311, a: 1}
+  m_IndirectSpecularColor: {r: 131.15268, g: 162.57007, b: 215.2687, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -661,8 +661,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 749080110}
-  m_LocalRotation: {x: 0.19525933, y: 0.000000014954917, z: -0.0000000029773972, w: 0.9807517}
-  m_LocalPosition: {x: 2426, y: 9.38, z: 1198.04}
+  m_LocalRotation: {x: 0.07618269, y: 0.90244484, z: -0.17882246, w: 0.3844633}
+  m_LocalPosition: {x: 3839.5383, y: 9.38, z: 1346.2073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1251374915}
@@ -838,8 +838,8 @@ MonoBehaviour:
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.674
-  m_DeadZoneWidth: 0.168
-  m_DeadZoneHeight: 0.156
+  m_DeadZoneWidth: 0.076
+  m_DeadZoneHeight: 0.069
   m_SoftZoneWidth: 0.56
   m_SoftZoneHeight: 0.452
   m_BiasX: 0
@@ -1039,8 +1039,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1297650280}
-  m_LocalRotation: {x: 0.19525933, y: 0.000000014954917, z: -0.0000000029773972, w: 0.9807517}
-  m_LocalPosition: {x: 2426, y: 9.38, z: 1198.04}
+  m_LocalRotation: {x: 0.07618269, y: 0.90244484, z: -0.17882246, w: 0.3844633}
+  m_LocalPosition: {x: 3839.5383, y: 9.38, z: 1346.2073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2521,6 +2521,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3191565589613400524, guid: 42ea801050492d844b0a964b21f64663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4785265184244142758, guid: 42ea801050492d844b0a964b21f64663,
         type: 3}
       propertyPath: m_RootOrder
@@ -2581,6 +2586,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombinedMeshes_TaipeiCitySplit02
       objectReference: {fileID: 0}
+    - target: {fileID: 8180577424895394908, guid: 42ea801050492d844b0a964b21f64663,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42ea801050492d844b0a964b21f64663, type: 3}
 --- !u!1001 &8068937913931225231
@@ -2618,7 +2628,7 @@ PrefabInstance:
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2426
+      value: 3846
       objectReference: {fileID: 0}
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
@@ -2628,12 +2638,12 @@ PrefabInstance:
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1207
+      value: 1340
       objectReference: {fileID: 0}
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.39193577
       objectReference: {fileID: 0}
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
@@ -2643,7 +2653,7 @@ PrefabInstance:
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9199926
       objectReference: {fileID: 0}
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
@@ -2658,7 +2668,7 @@ PrefabInstance:
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 133.85
       objectReference: {fileID: 0}
     - target: {fileID: 8068937915442446755, guid: 3863bf9a05347544da46cf64542e11dd,
         type: 3}
@@ -2739,10 +2749,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4723639151049734462, guid: c6edff3351c90d04da9f8499c37282a3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6269611132293270231, guid: c6edff3351c90d04da9f8499c37282a3,
         type: 3}
       propertyPath: m_Name
       value: CombinedMeshes_TaipeiCitySplit08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269611132293270231, guid: c6edff3351c90d04da9f8499c37282a3,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6edff3351c90d04da9f8499c37282a3, type: 3}

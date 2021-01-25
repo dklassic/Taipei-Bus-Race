@@ -137,7 +137,7 @@ public class Bus : MonoBehaviour
     private void Steer(float amount)
     {
         rotate = steerSpeed * amount;
-        lookAt.localPosition = Vector3.Lerp(lookAt.localPosition, Vector3.right * amount, 0.5f);
+        lookAt.localPosition = Vector3.Lerp(lookAt.localPosition, Vector3.right * amount, 0.5f * Time.deltaTime);
     }
     public bool IsNitroFull() => currentNitro.Equals(maxNitro);
 }
