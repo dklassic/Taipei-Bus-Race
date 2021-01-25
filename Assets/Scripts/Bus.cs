@@ -131,4 +131,5 @@ public class Bus : MonoBehaviour
     {
         rotate = steerSpeed * amount;
     }
+    public bool IsNitroFull() => currentNitro.Equals(maxNitro);
 }

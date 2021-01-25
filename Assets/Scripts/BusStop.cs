@@ -13,27 +13,16 @@ public class BusStop : MonoBehaviour
     }
     void OnTriggerEnter()
     {
-        if (isTriggered)
+        if (isTriggered || Bus.Instance.IsNitroFull())
             return;
         isTriggered = true;
         Bus.Instance.AddNitro(10);
-
-#if UNITY_EDITOR
-        rend.material.SetColor("_BaseMap", Color.gray);
-#else
-                rend.sharedMaterial.SetColor("_BaseMap", Color.gray);
-#endif
         Invoke("Replenish", replenishTime);
     }
 
     void Replenish()
     {
         isTriggered = false;
-        #if UNITY_EDITOR
-        rend.material.SetColor("_BaseMap", Color.blue);
-#else
-                rend.sharedMaterial.SetColor("_BaseMap", Color.blue);
-#endif
     }
 
 }
