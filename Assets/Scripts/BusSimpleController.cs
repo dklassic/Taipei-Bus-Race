@@ -12,9 +12,9 @@ public class BusSimpleController : MonoBehaviour
     [SerializeField] private float brake = 0f;
     [SerializeField] private float drift = 0f;
     [Header("Physical Property")]
-    [SerializeField] private float acceleration = 400f;
-    [SerializeField] private float steerSpeed = 20f;
-    [SerializeField] private float extraSteerModifier = 1.5f;
+    [SerializeField] private float acceleration = 100f;
+    [SerializeField] private float steerSpeed = 10f;
+    [SerializeField] private float extraSteerModifier = 2f;
     [SerializeField] private float gravity = 100f;
     [SerializeField] private float heightOffset = 2f;
     float rotate, currentRotate;
@@ -36,7 +36,7 @@ public class BusSimpleController : MonoBehaviour
     void Update()
     {
         speed += gas * acceleration;
-        speed -= brake * acceleration;
+        speed -= brake * acceleration * 0.5f;
         //Follow Collider
         transform.position = rb.transform.position - new Vector3(0, heightOffset, 0);
 
