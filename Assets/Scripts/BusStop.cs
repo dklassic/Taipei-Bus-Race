@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BusStop : MonoBehaviour
 {
+    [SerializeField] BusStopInfo info;
     [SerializeField] bool isTriggered = false;
     [SerializeField] float replenishTime = 10f;
     Renderer rend;
@@ -35,5 +36,4 @@ public class BusStop : MonoBehaviour
                 rend.sharedMaterial.SetColor("_BaseMap", Color.blue);
 #endif
     }
-
 }
