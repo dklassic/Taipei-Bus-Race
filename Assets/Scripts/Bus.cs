@@ -28,6 +28,7 @@ public class Bus : MonoBehaviour
     [SerializeField] private float nitroDepletionRate = 25f;
     public Rigidbody rb;
     Transform busModel;
+    [SerializeField] Transform lookAt;
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,6 +42,7 @@ public class Bus : MonoBehaviour
     void Start()
     {
         busModel = transform.GetChild(0);
+        lookAt = transform.GetChild(1);
     }
 
     // Update is called once per frame
@@ -61,11 +63,11 @@ public class Bus : MonoBehaviour
             busModel.DOPunchPosition(transform.up * 0.5f, .3f, 5, 1);
             inDrift = true;
         }
-        if (drift > 0 && inDrift)
+        else if (drift > 0 && inDrift)
         {
             Steer(steer * extraSteerModifier);
         }
-        if (drift == 0 && inDrift)
+        else if (drift == 0 && inDrift)
         {
             inDrift = false;
         }
@@ -76,9 +78,9 @@ public class Bus : MonoBehaviour
         }
         else
         {
+            currentNitro = Mathf.Min(currentNitro + 10f * Time.deltaTime, maxNitro);
             inNitro = false;
         }
-
     }
     void FixedUpdate()
     {
@@ -90,7 +92,7 @@ public class Bus : MonoBehaviour
         // Normal Acceleration
         // Nitro Boost
         if (inNitro)
-            rb.AddForce(transform.forward * 500f, ForceMode.Acceleration);
+            rb.AddForce(transform.forward * 600f, ForceMode.Acceleration);
         else if (inDrift)
             rb.AddForce(transform.forward * currentSpeed * 0.9f, ForceMode.Acceleration);
         else
@@ -135,6 +137,7 @@ public class Bus : MonoBehaviour
     private void Steer(float amount)
     {
         rotate = steerSpeed * amount;
+        lookAt.localPosition = Vector3.Lerp(lookAt.localPosition, Vector3.right * amount, 0.5f);
     }
     public bool IsNitroFull() => currentNitro.Equals(maxNitro);
 }
