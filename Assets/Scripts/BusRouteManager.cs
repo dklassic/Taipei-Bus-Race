@@ -90,10 +90,11 @@ public class BusRouteManager : MonoBehaviour
 
         int rnd = Random.Range(0, busRoutes.Count);
         busRoutes[rnd].gameObject.SetActive(true);
+        Debug.Log(busRoutes[rnd].gameObject.name);
         return busRoutes[rnd];
     }
 
-    public List<BusRoute> ShowMainRoute()
+    public List<BusRoute> ShowMainRoutes()
     {
         List<BusRoute> mainRoutes = new List<BusRoute>();
 

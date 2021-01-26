@@ -41,7 +41,7 @@ public class BusRouteManagerEditor : Editor
         // button
         if (GUILayout.Button("Get Main Route"))
         {
-            m_Target.ShowMainRoute();
+            m_Target.ShowMainRoutes();
         }
     }
 }
