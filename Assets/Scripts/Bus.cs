@@ -29,6 +29,8 @@ public class Bus : MonoBehaviour
     public Rigidbody rb;
     Transform busModel;
     [SerializeField] Transform lookAt;
+    [Header("Settings")]
+    [SerializeField] bool jumpOnDrift = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -55,8 +57,11 @@ public class Bus : MonoBehaviour
         Steer(steer);
         if (drift > 0 && !inDrift)
         {
-            busModel.DOComplete();
-            busModel.DOPunchPosition(transform.up * 0.5f, .3f, 5, 1);
+            if (jumpOnDrift)
+            {
+                busModel.DOComplete();
+                busModel.DOPunchPosition(transform.up * 0.5f, .3f, 5, 1);
+            }
             inDrift = true;
         }
         else if (drift > 0 && inDrift)
