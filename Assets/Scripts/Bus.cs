@@ -94,7 +94,7 @@ public class Bus : MonoBehaviour
         rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
         // Nitro Boost
         if (inNitro)
-            rb.AddForce(transform.forward * 600f, ForceMode.Acceleration);
+            rb.AddForce(transform.forward * acceleration * 2f, ForceMode.Acceleration);
         // Drift Acceleration
         else if (inDrift)
             rb.AddForce(transform.forward * currentSpeed * 0.8f, ForceMode.Acceleration);

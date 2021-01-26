@@ -79,7 +79,7 @@ MonoBehaviour:
   gas: 0
   brake: 0
   drift: 0
-  acceleration: 300
+  acceleration: 150
   steerSpeed: 10
   extraSteerModifier: 3
   gravity: 100
@@ -89,6 +89,7 @@ MonoBehaviour:
   nitroDepletionRate: 25
   rb: {fileID: 8068937913861551014}
   lookAt: {fileID: 1710548797749483897}
+  jumpOnDrift: 0
 --- !u!1 &8068937913861551017
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +131,7 @@ Rigidbody:
   m_GameObject: {fileID: 8068937913861551017}
   serializedVersion: 2
   m_Mass: 300
-  m_Drag: 2
+  m_Drag: 0.5
   m_AngularDrag: 2
   m_UseGravity: 1
   m_IsKinematic: 0
