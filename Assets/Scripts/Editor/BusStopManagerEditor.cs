@@ -12,8 +12,6 @@ public class BusStopManagerEditor : Editor
         m_Target = (BusStopManager)target;
 
         EditorGUILayout.Space();
-
-        GUILayout.Label("Data Process", EditorStyles.boldLabel);
         // button
         if (GUILayout.Button("Read Data"))
         {

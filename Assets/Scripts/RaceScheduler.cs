@@ -12,6 +12,8 @@ public class RaceScheduler : MonoBehaviour
     [SerializeField] float courseTime = 0f;
     [SerializeField] List<Transform> testCourse = new List<Transform>();
     [SerializeField] GameObject wayPointIndicator = null;
+    [SerializeField] BusRouteManager routeManager;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -80,6 +82,14 @@ public class RaceScheduler : MonoBehaviour
         {
             wayPoints.Add(point.position);
         }
+        InitializeCourse();
+    }
+
+    [ExposeMethodInEditor]
+    void ActivateRouteCourse()
+    {
+        BusRoute route = routeManager.ShowRandomRoute();
+        wayPoints = new List<Vector3>(route.GetRouteNodesWorldPositions(true));
         InitializeCourse();
     }
 
