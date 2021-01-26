@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f8545e01d69874a9d8d7b7a6a5fa18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info: {fileID: 0}
   isTriggered: 0
   replenishTime: 10
 --- !u!1 &8721385447415963593
@@ -117,6 +118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8721385447415963594}
+  - component: {fileID: 1410592271}
   m_Layer: 0
   m_Name: Bus Stop
   m_TagString: Untagged
@@ -139,3 +141,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1410592271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721385447415963593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f37fd0e768b306e489102ed20d7145f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  busStopName: 
+  longitude: 0
+  latitude: 0
