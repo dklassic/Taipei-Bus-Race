@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[RequireComponent(typeof(LineRenderer))]
 public class BusRoute : MonoBehaviour
 {
     [SerializeField] public int routeIndex { get; private set; }
     [SerializeField] public string routeName { get; private set; }
     [SerializeField] List<RouteNode> routeNodes;
     [SerializeField] List<Vector3> simplifiedRouteWorldPosition;
-    LineRenderer line = null;
+
+
+    [SerializeField] LineRenderer line = null;
 
     Vector2 center;
     float scale;
@@ -23,11 +24,12 @@ public class BusRoute : MonoBehaviour
         routeName = name;
         this.name = "Bus Route : " + index.ToString() + " | " + routeName;
         routeNodes = new List<RouteNode>();
-        line = GetComponent<LineRenderer>();
         line.startWidth = 10;
         line.endWidth = 10;
 
         SetCenterAndScale(center, scale);
+
+        Debug.Log("Initialize " + this.name);
     }
 
     public void SetCenterAndScale(Vector2 center, float scale)
@@ -43,7 +45,6 @@ public class BusRoute : MonoBehaviour
 
     public void SimplyfyRoute()
     {
-        line = GetComponent<LineRenderer>();
         int originalCount = line.positionCount;
         float threshold = 5f;
         line.Simplify(threshold);
@@ -59,7 +60,8 @@ public class BusRoute : MonoBehaviour
         if (simplified)
         {
             SimplyfyRoute();
-            return simplifiedRouteWorldPosition.Select(x => transform.TransformPoint(x)).ToList();
+            //return simplifiedRouteWorldPosition.Select(x => transform.TransformPoint(x)).ToList();
+            return simplifiedRouteWorldPosition;
         }
         else
         {
@@ -69,16 +71,17 @@ public class BusRoute : MonoBehaviour
 
     public void DrawLine(bool simplified = false)
     {
+        Debug.Log("Draw Line " + this.name);
+
         // sort
         routeNodes = routeNodes.OrderBy(x => x.index).ToList();
         //clear old node
-        line = GetComponent<LineRenderer>();
         line.positionCount = routeNodes.Count;
 
         // add node to line
         for (int i = 0; i< routeNodes.Count; i++)
         {
-            Vector3 position = routeNodes[i].GetLocalPosition(center, scale);
+            Vector3 position = transform.TransformPoint(routeNodes[i].GetLocalPosition(center, scale));
             line.SetPosition(i, position);
         }
 
@@ -89,15 +92,12 @@ public class BusRoute : MonoBehaviour
         }
     }
 
-
     private void OnDrawGizmosSelected()
     {
         if (debug)
         {
-            line = GetComponent<LineRenderer>();
             for (int i=0; i<line.positionCount; i++)
             {
-                //Gizmos.DrawIcon(line.GetPosition(i), i.ToString());
                 Gizmos.DrawWireSphere(transform.TransformPoint(line.GetPosition(i)), 10);
             }
         }
@@ -130,6 +130,6 @@ public class RouteNode
 
     public Vector3 GetLocalPosition(Vector2 center, float scale)
     {
-        return new Vector3((longitude - center.x) * scale, 0, (latitude - center.y) * scale);
+        return new Vector3((longitude - center.x) * scale, 1f, (latitude - center.y) * scale);
     }
 }
