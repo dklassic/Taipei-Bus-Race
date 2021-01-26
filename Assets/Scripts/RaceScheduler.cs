@@ -86,6 +86,7 @@ public class RaceScheduler : MonoBehaviour
     void InitializeCourse()
     {
         Bus.Instance.rb.transform.position = wayPoints[0] + Vector3.up * 25f;
+        Bus.Instance.transform.rotation = Quaternion.LookRotation(wayPoints[1] - wayPoints[0], Vector3.up);
         currentWayPointIndex = 1;
         totalWayPointCount = wayPoints.Count - 1;
         currentWaypoint = wayPoints[1];
