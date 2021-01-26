@@ -19,7 +19,7 @@ public class BusStopManager : MonoBehaviour
 
     public void ReadData()
     {
-        TextAsset dataset = AssetDatabase.LoadAssetAtPath<TextAsset>(rawData);
+        TextAsset dataset = Resources.Load(rawData, typeof(TextAsset)) as TextAsset;
         string[] dataLines = dataset.text.Split('\n');
 
         for (int i = 1; i < dataLines.Length; i++)
