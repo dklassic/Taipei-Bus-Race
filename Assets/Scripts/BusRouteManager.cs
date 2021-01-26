@@ -13,12 +13,15 @@ public class BusRouteManager : MonoBehaviour
     [Header("Bus Route")]
     public GameObject busRoutePrefab;
     [SerializeField] List<BusRoute> busRoutes;
+    public bool simplified = false;
 
     [Header("Data")]
     [SerializeField] string rawData;
 
     public void ReadData()
     {
+        DeleteBusRoutes();
+
         TextAsset dataset = AssetDatabase.LoadAssetAtPath<TextAsset>(rawData);
         string[] dataLines = dataset.text.Split('\n');
 
@@ -45,7 +48,7 @@ public class BusRouteManager : MonoBehaviour
             else
             {
                 BusRoute busRoute = Instantiate(busRoutePrefab, transform).GetComponent<BusRoute>();
-                busRoute.Initialize(routeIndex, chineseName);
+                busRoute.Initialize(routeIndex, chineseName, mapCenter, mapScale);
                 busRoute.AddNode(newNode);
                 busRoutes.Add(busRoute);
             }
@@ -56,15 +59,17 @@ public class BusRouteManager : MonoBehaviour
         for (int i = 0; i < busRoutes.Count; i++)
         {
             busRoutes[i].transform.SetSiblingIndex(i);
-            busRoutes[i].DrawLine(mapCenter, mapScale);
+            busRoutes[i].DrawLine(simplified);
             busRoutes[i].gameObject.SetActive(false);
         }
     }
+
     public void UpdateBusRoutePosition()
     {
         foreach (BusRoute busRoute in busRoutes)
         {
-            busRoute.DrawLine(mapCenter, mapScale);
+            busRoute.SetCenterAndScale(mapCenter, mapScale);
+            busRoute.DrawLine(simplified);
         }
     }
     public void DeleteBusRoutes()
