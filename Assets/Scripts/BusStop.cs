@@ -16,6 +16,7 @@ public class BusStop : MonoBehaviour
     {
         if (isTriggered || Bus.Instance.IsNitroFull())
             return;
+        rend.enabled = false;
         isTriggered = true;
         Bus.Instance.AddNitro(10);
         Invoke("Replenish", replenishTime);
@@ -23,6 +24,7 @@ public class BusStop : MonoBehaviour
 
     void Replenish()
     {
+        rend.enabled = true;
         isTriggered = false;
     }
 }

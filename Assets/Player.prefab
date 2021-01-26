@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8068937913594237864}
   - component: {fileID: 8068937913594237863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   drift: 0
   acceleration: 300
   steerSpeed: 10
-  extraSteerModifier: 2
+  extraSteerModifier: 3
   gravity: 100
   heightOffset: 2
   currentNitro: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 8068937913861551016}
   - component: {fileID: 8068937913861551014}
   - component: {fileID: 8068937913861551015}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sphere Rigidbody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 3
 --- !u!135 &8068937913861551015
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 8068937914915239336}
   - component: {fileID: 8068937914915239333}
   - component: {fileID: 8068937914915239334}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bus Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8068937915442446755}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}

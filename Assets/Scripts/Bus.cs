@@ -50,13 +50,9 @@ public class Bus : MonoBehaviour
     {
         speed += gas * acceleration;
         speed -= brake * acceleration * 0.5f;
-        //Follow Collider
-        transform.position = rb.transform.position - new Vector3(0, heightOffset, 0);
 
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f); speed = 0f;
-        currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
         Steer(steer);
-
         if (drift > 0 && !inDrift)
         {
             busModel.DOComplete();
@@ -71,6 +67,8 @@ public class Bus : MonoBehaviour
         {
             inDrift = false;
         }
+        currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
+
         if (nitro == 1f && currentNitro > 0)
         {
             inNitro = true;
@@ -78,29 +76,27 @@ public class Bus : MonoBehaviour
         }
         else
         {
-            currentNitro = Mathf.Min(currentNitro + 10f * Time.deltaTime, maxNitro);
             inNitro = false;
+            // To be removed after bus stop implemented
+            // currentNitro = Mathf.Min(currentNitro + 10f * Time.deltaTime, maxNitro);
         }
     }
     void FixedUpdate()
     {
         if (rb == null)
             return;
-
         // Gravity
         rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
-        // Normal Acceleration
         // Nitro Boost
         if (inNitro)
             rb.AddForce(transform.forward * 600f, ForceMode.Acceleration);
+        // Drift Acceleration
         else if (inDrift)
             rb.AddForce(transform.forward * currentSpeed * 0.8f, ForceMode.Acceleration);
+        // Normal Acceleration
         else
             rb.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
-        if (currentSpeed >= 0)
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
-        else
-            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y - currentRotate, 0), Time.deltaTime * 5f);
+        VisualUpdate();
     }
     void OnEnable()
     {
@@ -129,6 +125,17 @@ public class Bus : MonoBehaviour
         controls.Gameplay.Nitro.canceled += _ => nitro = 0f;
     }
 
+    void VisualUpdate()
+    {
+        // Visual Change
+        // Follow Collider
+        transform.position = rb.transform.position - new Vector3(0, heightOffset, 0);
+        if (currentSpeed >= 0)
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 5f);
+        else
+            transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y - currentRotate, 0), Time.deltaTime * 5f);
+    }
+
     public void AddNitro(float value)
     {
         currentNitro = Mathf.Min(currentNitro + value, maxNitro);
@@ -137,7 +144,7 @@ public class Bus : MonoBehaviour
     private void Steer(float amount)
     {
         rotate = steerSpeed * amount;
-        lookAt.localPosition = Vector3.Lerp(lookAt.localPosition, Vector3.right * amount, 0.5f * Time.deltaTime);
+        lookAt.localPosition = Vector3.Lerp(lookAt.localPosition, Vector3.right * rotate / steerSpeed, 0.5f * Time.deltaTime);
     }
     public bool IsNitroFull() => currentNitro.Equals(maxNitro);
 }
